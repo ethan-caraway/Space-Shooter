@@ -24,6 +24,18 @@ public class PlayerController : MonoBehaviour
 	[SerializeField]
 	private Rigidbody rb;
 
+	// The audio source of the player
+	[SerializeField]
+	private AudioSource audio;
+
+	// The transform location for spawning bolts
+	[SerializeField]
+	private Transform boltSpawn;
+
+	// The prefab for the bolt
+	[SerializeField]
+	private GameObject boltPrefab;
+
 	// The speed at which the player will move
 	[SerializeField]
 	private float speed;
@@ -32,12 +44,19 @@ public class PlayerController : MonoBehaviour
 	[SerializeField]
 	private float tilt;
 
+	// The amount of time in seconds before the next shot can be fired
+	[SerializeField]
+	private float fireRate;
+
 	// The bounds for the player to move within the scene
 	[SerializeField]
 	private Bounds bounds;
 
 	// The movement input values along the X and Y axes
 	private Vector2 input;
+
+	// The time the player wait until before the next shot can be fired
+	private float nextFire;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -66,5 +85,22 @@ public class PlayerController : MonoBehaviour
 	{
 		// Convert the movement input value into a 2D vector
 		input = moveValue.Get<Vector2> ( );
+	}
+
+	// OnAttack is called when the Input System triggers the Attack action
+	private void OnAttack ( )
+	{
+		// Check if enough time has passed to fire again
+		if ( Time.time >= nextFire )
+		{
+			// Store time when the next shot can be fired
+			nextFire = Time.time + fireRate;
+
+			// Spawn a new bolt
+			Instantiate ( boltPrefab, boltSpawn.position, boltSpawn.rotation );
+
+			// Play sound effect
+			audio.Play ( );
+		}
 	}
 }
