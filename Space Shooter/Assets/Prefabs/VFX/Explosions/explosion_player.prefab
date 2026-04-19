@@ -19348,6 +19348,7 @@ GameObject:
   - component: {fileID: 19800010}
   - component: {fileID: 19900010}
   - component: {fileID: 82412619694674396}
+  - component: {fileID: 4488143658146478981}
   m_Layer: 0
   m_Name: explosion_player
   m_TagString: Untagged
@@ -24327,6 +24328,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &4488143658146478981
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100008}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7794c8c649a18a04fba7a2a424f1e128, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DestroyByTime
+  delay: 1
 --- !u!1 &100010
 GameObject:
   m_ObjectHideFlags: 0
