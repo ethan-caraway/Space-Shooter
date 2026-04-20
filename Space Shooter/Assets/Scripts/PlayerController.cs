@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour
 
 	// The audio source of the player
 	[SerializeField]
-	private AudioSource audio;
+	private AudioSource audioSource;
 
 	// The transform location for spawning bolts
 	[SerializeField]
@@ -100,7 +100,7 @@ public class PlayerController : MonoBehaviour
 			Instantiate ( boltPrefab, boltSpawn.position, boltSpawn.rotation );
 
 			// Play sound effect
-			audio.Play ( );
+			audioSource.Play ( );
 		}
 	}
 }
