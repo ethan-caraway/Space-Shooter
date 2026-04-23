@@ -325,7 +325,7 @@ AudioSource:
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 200
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -436,6 +436,7 @@ MonoBehaviour:
   - {fileID: 5546955382870650284, guid: 3e981e4da9153494fa3e6df15e84d550, type: 3}
   - {fileID: 8586525143812090945, guid: 7420902db5c9f0d4e9d1e28db79a11f8, type: 3}
   - {fileID: 3174534876923263626, guid: cb228314330675444997cdcc38244c8e, type: 3}
+  - {fileID: 9124792812598905315, guid: 209801fe490527d4bbb8071dcb0a9c89, type: 3}
   spawnRange: {x: 9, y: 0, z: 8}
   hazardsPerWave: 3
   startWait: 2

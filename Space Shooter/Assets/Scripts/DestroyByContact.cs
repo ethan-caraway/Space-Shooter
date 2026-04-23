@@ -2,6 +2,10 @@ using UnityEngine;
 
 public class DestroyByContact : MonoBehaviour
 {
+	// The game controller in the scene
+	[HideInInspector]
+	public GameController Controller;
+
 	// The explosion prefab for this hazard
 	[SerializeField]
 	private GameObject explosion;
@@ -23,10 +27,17 @@ public class DestroyByContact : MonoBehaviour
 		{
 			// Create the player explosion
 			Instantiate ( playerExplosion, other.transform.position, other.transform.rotation );
+
+			// Mark the game as over
+			Controller.GameOver ( );
 		}
 
-		// Create the explosion for this hazard
-		Instantiate ( explosion, transform.position, transform.rotation );
+		// Check for explosion
+		if ( explosion != null )
+		{
+			// Create the explosion for this hazard
+			Instantiate ( explosion, transform.position, transform.rotation );
+		}
 
 		// Destroy the other game object first
 		Destroy ( other.gameObject );

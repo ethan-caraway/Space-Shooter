@@ -27,12 +27,21 @@ public class GameController : MonoBehaviour
 	[SerializeField]
 	private float waveWait;
 
+	private bool isGameOver = false;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
 		// Start spawning waves
 		StartCoroutine ( SpawnWaves ( ) );
     }
+
+	// GameOver will mark that the game has ended
+	public void GameOver()
+	{
+		// Mark that the game is over
+		isGameOver = true;
+	}
 
 	// SpawnWaves will continuously spawn waves of hazards until the game ends
 	private IEnumerator SpawnWaves()
@@ -58,6 +67,13 @@ public class GameController : MonoBehaviour
 
 			// Wait before spawning the next wave
 			yield return new WaitForSeconds ( waveWait );
+
+			// Check if the game can continue
+			if ( isGameOver )
+			{
+				// Exit the infinite loop
+				break;
+			}
 		}
 	}
 
@@ -68,6 +84,19 @@ public class GameController : MonoBehaviour
 		Vector3 spawnPosition = new Vector3 ( Random.Range ( -spawnRange.x, spawnRange.x ), spawnRange.y, spawnRange.z );
 
 		// Spawn the hazard at the spawn position
-		Instantiate ( hazard, spawnPosition, Quaternion.identity );
+		GameObject instance = Instantiate ( hazard, spawnPosition, Quaternion.identity );
+
+		// Assign this as the game controller to the hazard instance
+		instance.GetComponent<DestroyByContact> ( ).Controller = this;
+
+		// Get the potential weapon from the hazard
+		WeaponController weapon = instance.GetComponent<WeaponController> ( );
+
+		// Check for weapon
+		if ( weapon != null )
+		{
+			// Assign this as the game controller to the weapon
+			weapon.Controller = this;
+		}
 	}
 }
