@@ -23,6 +23,14 @@ public class WeaponController : MonoBehaviour
 	[SerializeField]
 	private float firstShotDelay;
 
+	// The amount of shots fired in a burst
+	[SerializeField]
+	private int burstCount;
+
+	// The amount of time in seconds before the next shot in the burst can be fired
+	[SerializeField]
+	private float burstDelay;
+
 	// The amount of time in seconds before the next shot can be fired
 	[SerializeField]
 	private float fireRate;
@@ -47,20 +55,27 @@ public class WeaponController : MonoBehaviour
 		// Continuously fire shots
 		while(true)
 		{
-			// Fire left bolt
-			DestroyByContact leftInstance = Instantiate ( boltPrefab, boltSpawn.position + ( Vector3.left * offset ), boltSpawn.rotation );
+			// Fire shots for each burst
+			for ( int i = 0; i < burstCount; i++ )
+			{
+				// Fire left bolt
+				DestroyByContact leftInstance = Instantiate ( boltPrefab, boltSpawn.position + ( Vector3.left * offset ), boltSpawn.rotation );
 
-			// Set game controller for the left bolt
-			leftInstance.Controller = Controller;
+				// Set game controller for the left bolt
+				leftInstance.Controller = Controller;
 
-			// Fire left bolt
-			DestroyByContact rightInstance = Instantiate ( boltPrefab, boltSpawn.position + ( Vector3.right * offset ), boltSpawn.rotation );
+				// Fire left bolt
+				DestroyByContact rightInstance = Instantiate ( boltPrefab, boltSpawn.position + ( Vector3.right * offset ), boltSpawn.rotation );
 
-			// Set game controller for the right bolt
-			rightInstance.Controller = Controller;
+				// Set game controller for the right bolt
+				rightInstance.Controller = Controller;
 
-			// Play the sound effect
-			audioSource.Play ( );
+				// Play the sound effect
+				audioSource.Play ( );
+
+				// Wait before firing the next shot in the burst
+				yield return new WaitForSeconds ( burstDelay );
+			}
 
 			// Wait before firing the next shot
 			yield return new WaitForSeconds ( fireRate );

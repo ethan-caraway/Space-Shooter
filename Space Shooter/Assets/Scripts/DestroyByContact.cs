@@ -14,6 +14,7 @@ public class DestroyByContact : MonoBehaviour
 	[SerializeField]
 	private GameObject playerExplosion;
 
+	// OnTriggerExit is called when a collider enters a trigger
 	private void OnTriggerEnter ( Collider other )
 	{
 		// Ensure the hazard isn't destroyed for entering the play boundary

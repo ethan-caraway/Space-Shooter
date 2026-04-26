@@ -3,7 +3,7 @@ using UnityEngine;
 public class AsteroidSplitter : MonoBehaviour
 {
 	// A constant value representing a 90 degree angle
-	private const float RIGHT_ANGLE = 90;
+	private const float RIGHT_ANGLE = 90f;
 
 	// The debris prefabs to spawn
 	[SerializeField]
@@ -40,6 +40,7 @@ public class AsteroidSplitter : MonoBehaviour
 	// Tracks whether or not the object is being destroyed due to a collision
 	private bool isColliding;
 
+	// OnTriggerExit is called when a collider enters a trigger
 	private void OnTriggerEnter ( Collider other )
 	{
 		// Check that it is not colliding with the boundary
