@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &5546955382870747916
+--- !u!1001 &8625972856552005022
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -10,7 +10,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100000, guid: baedbbad82997f445a8cb4da210404e0, type: 3}
       propertyPath: m_Name
-      value: Asteroid 1
+      value: Big Asteroid
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: baedbbad82997f445a8cb4da210404e0, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: baedbbad82997f445a8cb4da210404e0, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: baedbbad82997f445a8cb4da210404e0, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: baedbbad82997f445a8cb4da210404e0, type: 3}
       propertyPath: m_LocalPosition.x
@@ -58,32 +70,35 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 100000, guid: baedbbad82997f445a8cb4da210404e0, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 6561120405888927042}
+      addedObject: {fileID: 3455463465082405830}
     - targetCorrespondingSourceObject: {fileID: 100000, guid: baedbbad82997f445a8cb4da210404e0, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 830782847607325753}
+      addedObject: {fileID: 7132853700224313788}
     - targetCorrespondingSourceObject: {fileID: 100000, guid: baedbbad82997f445a8cb4da210404e0, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 815985749261645180}
+      addedObject: {fileID: 1290077238225939040}
     - targetCorrespondingSourceObject: {fileID: 100000, guid: baedbbad82997f445a8cb4da210404e0, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 8572087800781701694}
+      addedObject: {fileID: 4060813797569562780}
     - targetCorrespondingSourceObject: {fileID: 100000, guid: baedbbad82997f445a8cb4da210404e0, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 5182348038269851211}
+      addedObject: {fileID: 1467141170663880926}
+    - targetCorrespondingSourceObject: {fileID: 100000, guid: baedbbad82997f445a8cb4da210404e0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1875671486892072278}
   m_SourcePrefab: {fileID: 100100000, guid: baedbbad82997f445a8cb4da210404e0, type: 3}
---- !u!1 &5546955382870650284 stripped
+--- !u!1 &8625972856551906110 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: baedbbad82997f445a8cb4da210404e0, type: 3}
-  m_PrefabInstance: {fileID: 5546955382870747916}
+  m_PrefabInstance: {fileID: 8625972856552005022}
   m_PrefabAsset: {fileID: 0}
---- !u!65 &6561120405888927042
+--- !u!65 &3455463465082405830
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5546955382870650284}
+  m_GameObject: {fileID: 8625972856551906110}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -98,13 +113,13 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.0290167, y: 1.5034924, z: 0.91028076}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &830782847607325753
+--- !u!54 &7132853700224313788
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5546955382870650284}
+  m_GameObject: {fileID: 8625972856551906110}
   serializedVersion: 5
   m_Mass: 1
   m_LinearDamping: 0
@@ -125,41 +140,41 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &815985749261645180
+--- !u!114 &1290077238225939040
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5546955382870650284}
+  m_GameObject: {fileID: 8625972856551906110}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bf02c25435ea2b44aafb8b35f0427e8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Mover
   speed: -2
-  rb: {fileID: 830782847607325753}
---- !u!114 &8572087800781701694
+  rb: {fileID: 7132853700224313788}
+--- !u!114 &4060813797569562780
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5546955382870650284}
+  m_GameObject: {fileID: 8625972856551906110}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8779e4657411c10459a59f19ef7d39a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Rotator
-  rb: {fileID: 830782847607325753}
+  rb: {fileID: 7132853700224313788}
   speed: 0.25
---- !u!114 &5182348038269851211
+--- !u!114 &1467141170663880926
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5546955382870650284}
+  m_GameObject: {fileID: 8625972856551906110}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0e993e56161197347bc0b25b8c42719f, type: 3}
@@ -168,3 +183,26 @@ MonoBehaviour:
   Controller: {fileID: 0}
   explosion: {fileID: 100004, guid: 2857e183f4cd3df4e9096e5b578bd32f, type: 3}
   playerExplosion: {fileID: 100008, guid: a93496017806b7740910df5fd946f306, type: 3}
+--- !u!114 &1875671486892072278
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8625972856551906110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4759b1033485dc74bb15b4581a345351, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AsteroidSplitter
+  debris:
+  - {fileID: 8640060632794069517, guid: 4d3e1ee6e00c3f642998bb385e3c4297, type: 3}
+  - {fileID: 2676890429140569974, guid: ecde38a746ade2443a77d17f2405415a, type: 3}
+  - {fileID: 4508170407856392767, guid: ee2e1bbdf9a53ce429a3a048dc826ad6, type: 3}
+  leftOffset: {x: -0.5, y: 0, z: -0.5}
+  centerOffset: {x: 0, y: 0, z: 0.5}
+  rightOffset: {x: 0.5, y: 0, z: -0.5}
+  centerSpeedRange: {x: 0.8, y: 1.5}
+  sideSpeedRange: {x: 1.5, y: 2}
+  maxCenterAngle: 10
+  sideAngleRange: {x: 15, y: 50}

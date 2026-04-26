@@ -155,8 +155,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf02c25435ea2b44aafb8b35f0427e8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Mover
-  rb: {fileID: 3256562178711015775}
   speed: -10
+  rb: {fileID: 3256562178711015775}
 --- !u!114 &408349556550920395
 MonoBehaviour:
   m_ObjectHideFlags: 0

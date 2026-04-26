@@ -46,6 +46,7 @@ GameObject:
   - component: {fileID: 2520235736985896723}
   - component: {fileID: 6059706531240103909}
   - component: {fileID: 6728050422338191081}
+  - component: {fileID: 1788833351914894224}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -86,7 +87,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -228,8 +229,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf02c25435ea2b44aafb8b35f0427e8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Mover
-  rb: {fileID: 680813925200056903}
   speed: -3
+  rb: {fileID: 680813925200056903}
 --- !u!114 &6059706531240103909
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -264,6 +265,30 @@ MonoBehaviour:
   firstShotDelay: 0.3
   fireRate: 1.5
   offset: 0.3
+--- !u!114 &1788833351914894224
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9124792812598905315}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dcbd19818a2ed044ca8d2b23e3c55b4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Evader
+  rb: {fileID: 680813925200056903}
+  bounds:
+    MinX: -9
+    MaxX: 9
+    MinZ: -10
+    MaxZ: 10
+  tilt: 10
+  maxEvadeSpeed: 5
+  acceleration: 4
+  startWait: {x: 0.2, y: 0.75}
+  evadeTime: {x: 1, y: 2}
+  evadeWait: {x: 0.5, y: 1.5}
 --- !u!1001 &8358409556225505524
 PrefabInstance:
   m_ObjectHideFlags: 0
