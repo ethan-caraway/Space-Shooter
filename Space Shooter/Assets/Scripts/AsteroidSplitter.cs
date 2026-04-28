@@ -5,6 +5,10 @@ public class AsteroidSplitter : MonoBehaviour
 	// A constant value representing a 90 degree angle
 	private const float RIGHT_ANGLE = 90f;
 
+	// The DestroyByContact component of this asteroid
+	[SerializeField]
+	private DestroyByContact destroybyContact;
+
 	// The debris prefabs to spawn
 	[SerializeField]
 	private Mover [ ] debris;
@@ -62,6 +66,9 @@ public class AsteroidSplitter : MonoBehaviour
 
 			// Give the center asteroid a random direction and speed
 			center.SetDirection ( AngleToDirection ( Random.Range ( -maxCenterAngle, maxCenterAngle ) + RIGHT_ANGLE ), Random.Range ( centerSpeedRange.x, centerSpeedRange.y ) );
+
+			// Set the game controller for the center asteroid
+			center.GetComponent<DestroyByContact> ( ).Controller = destroybyContact.Controller;
 			
 			// Spawn a random right asteroid
 			Mover right = Instantiate ( debris [ Random.Range ( 0, debris.Length ) ], transform.position + rightOffset, Quaternion.identity );
@@ -69,11 +76,17 @@ public class AsteroidSplitter : MonoBehaviour
 			// Give the right asteroid a random direction and speed
 			right.SetDirection ( AngleToDirection ( -Random.Range ( sideAngleRange.x, sideAngleRange.y ) + RIGHT_ANGLE ), Random.Range ( sideSpeedRange.x, sideSpeedRange.y ) );
 
+			// Set the game controller for the right asteroid
+			right.GetComponent<DestroyByContact> ( ).Controller = destroybyContact.Controller;
+
 			// Spawn a random left asteroid
 			Mover left = Instantiate ( debris [ Random.Range ( 0, debris.Length ) ], transform.position + leftOffset, Quaternion.identity );
 
 			// Give the left asteroid a random direction and speed
 			left.SetDirection ( AngleToDirection ( Random.Range ( sideAngleRange.x, sideAngleRange.y ) + RIGHT_ANGLE ), Random.Range ( sideSpeedRange.x, sideSpeedRange.y ) );
+
+			// Set the game controller for the left asteroid
+			left.GetComponent<DestroyByContact> ( ).Controller = destroybyContact.Controller;
 		}
 	}
 

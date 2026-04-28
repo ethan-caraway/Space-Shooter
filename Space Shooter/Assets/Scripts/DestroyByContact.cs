@@ -14,6 +14,10 @@ public class DestroyByContact : MonoBehaviour
 	[SerializeField]
 	private GameObject playerExplosion;
 
+	// The amount of score earned for destroying this object
+	[SerializeField]
+	private int scoreValue;
+
 	// OnTriggerExit is called when a collider enters a trigger
 	private void OnTriggerEnter ( Collider other )
 	{
@@ -22,15 +26,20 @@ public class DestroyByContact : MonoBehaviour
 		{
 			return;
 		}
-
 		// Check if the collision is with the player
-		if ( other.tag == "Player" )
+		else if ( other.tag == "Player" )
 		{
 			// Create the player explosion
 			Instantiate ( playerExplosion, other.transform.position, other.transform.rotation );
 
 			// Mark the game as over
 			Controller.GameOver ( );
+		}
+		// Check if the collision is with a bolt from the player
+		else if ( other.tag == "PlayerBolt" )
+		{
+			// Increase score
+			Controller.AddScore ( scoreValue );
 		}
 
 		// Check for explosion

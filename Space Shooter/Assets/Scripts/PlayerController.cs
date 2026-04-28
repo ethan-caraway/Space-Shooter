@@ -20,6 +20,10 @@ public class Bounds
 
 public class PlayerController : MonoBehaviour
 {
+	// The game controller in the scene
+	[SerializeField]
+	private GameController controller;
+
 	// The rigidbody of the player
 	[SerializeField]
 	private Rigidbody rb;
@@ -58,15 +62,22 @@ public class PlayerController : MonoBehaviour
 	// The time the player wait until before the next shot can be fired
 	private float nextFire;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+	// Start is called once before the first execution of Update after the MonoBehaviour is created
+	private void Start ( )
+	{
+		
+	}
 
-    // FixedUpdate is called at a fixed rate for physics calculations
-    void FixedUpdate()
-    {
+	// Update is called every frame
+	private void Update ( )
+	{
+		// Update the charge status UI
+		controller.UpdateWeaponCharge ( ( fireRate - ( nextFire - Time.time ) ) / fireRate );
+	}
+
+	// FixedUpdate is called at a fixed rate for physics calculations
+	private void FixedUpdate ( )
+	{
 		// Create a 3D vector using the X and Y input values
 		Vector3 movement = new Vector3 ( input.x, 0f, input.y );
 
@@ -78,7 +89,7 @@ public class PlayerController : MonoBehaviour
 
 		// Rotate the player when moving on the X axis
 		rb.rotation = Quaternion.Euler ( 0f, 0f, rb.linearVelocity.x * -tilt );
-    }
+	}
 
 	// OnMove is called when the Input System triggers the Move action
 	private void OnMove ( InputValue moveValue )

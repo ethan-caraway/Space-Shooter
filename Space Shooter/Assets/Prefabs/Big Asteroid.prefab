@@ -183,6 +183,7 @@ MonoBehaviour:
   Controller: {fileID: 0}
   explosion: {fileID: 100004, guid: 2857e183f4cd3df4e9096e5b578bd32f, type: 3}
   playerExplosion: {fileID: 100008, guid: a93496017806b7740910df5fd946f306, type: 3}
+  scoreValue: 1
 --- !u!114 &1875671486892072278
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -195,6 +196,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4759b1033485dc74bb15b4581a345351, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AsteroidSplitter
+  destroybyContact: {fileID: 1467141170663880926}
   debris:
   - {fileID: 8640060632794069517, guid: 4d3e1ee6e00c3f642998bb385e3c4297, type: 3}
   - {fileID: 2676890429140569974, guid: ecde38a746ade2443a77d17f2405415a, type: 3}

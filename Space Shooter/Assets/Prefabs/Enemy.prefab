@@ -246,6 +246,7 @@ MonoBehaviour:
   Controller: {fileID: 0}
   explosion: {fileID: 100012, guid: 384371afbb4354cc9a3fc68eab303756, type: 3}
   playerExplosion: {fileID: 100008, guid: a93496017806b7740910df5fd946f306, type: 3}
+  scoreValue: 3
 --- !u!114 &6728050422338191081
 MonoBehaviour:
   m_ObjectHideFlags: 0
