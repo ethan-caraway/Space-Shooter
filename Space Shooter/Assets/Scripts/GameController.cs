@@ -1,6 +1,7 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
@@ -41,6 +42,10 @@ public class GameController : MonoBehaviour
 	// The text element for displaying the warning
 	[SerializeField]
 	private TMP_Text warningText;
+
+	// The UI element containing the UI elements for the game over screen
+	[SerializeField]
+	private GameObject gameOverContainer;
 
 	// The list of hazard prefabs
 	[SerializeField]
@@ -132,6 +137,20 @@ public class GameController : MonoBehaviour
 		}
 	}
 
+	// Retry will reload the Space scene
+	public void Retry ( )
+	{
+		// Reload the scene
+		SceneManager.LoadScene ( "Space" );
+	}
+
+	// MainMenu will load the Main Menu scene
+	public void MainMenu ( )
+	{
+		// Load the main menu
+		SceneManager.LoadScene ( "MainMenu" );
+	}
+
 	// SpawnWaves will continuously spawn waves of hazards until the game ends
 	private IEnumerator SpawnWaves ( )
 	{
@@ -192,6 +211,9 @@ public class GameController : MonoBehaviour
 			// Wait before beginning the round
 			yield return new WaitForSeconds ( postWarningWait );
 		}
+
+		// Display the game over screen
+		gameOverContainer.SetActive ( true );
 	}
 
 	// SpawnHazard will spawn a given hazard at a random location
@@ -232,7 +254,7 @@ public class GameController : MonoBehaviour
 
 		// Display the warning message
 		warningText.text = warning;
-
+		
 		// Clear arrows
 		leftArrowText.text = string.Empty;
 		rightArrowText.text = string.Empty;
