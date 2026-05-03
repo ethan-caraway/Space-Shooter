@@ -1,2 +1,2 @@
 # Space-Shooter
-The Space Shooter project for Outcome School's Game Development 1 course
+This is a completed sample Space Shooter project for Outcome School students to reference
