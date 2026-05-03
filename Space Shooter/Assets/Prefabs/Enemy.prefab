@@ -284,7 +284,7 @@ MonoBehaviour:
   bounds:
     MinX: -9
     MaxX: 9
-    MinZ: -10
+    MinZ: -15
     MaxZ: 10
   tilt: 10
   maxEvadeSpeed: 5

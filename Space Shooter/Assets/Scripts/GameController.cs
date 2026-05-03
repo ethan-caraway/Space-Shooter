@@ -15,6 +15,9 @@ public class GameController : MonoBehaviour
 	// The unicode character for double right facing arrows
 	private const string RIGHT_ARROW = "\u00BB";
 
+	// The key for storing the high score
+	private const string HIGH_SCORE_KEY = "HighScore";
+
 	// The text element for displaying the score
 	[SerializeField]
 	private TMP_Text scoreText;
@@ -26,6 +29,18 @@ public class GameController : MonoBehaviour
 	// The text element for displaying the weapon charge status
 	[SerializeField]
 	private TMP_Text chargeText;
+
+	// The HUD element containing the UI elements for displaying attack information
+	[SerializeField]
+	private GameObject attackContainer;
+
+	// The text element for displaying the attack type and ammo
+	[SerializeField]
+	private TMP_Text attackText;
+
+	// The slider element for displaying the ammo remaining
+	[SerializeField]
+	private Slider ammoSlider;
 
 	// The UI element containing the warning banner
 	[SerializeField]
@@ -47,9 +62,17 @@ public class GameController : MonoBehaviour
 	[SerializeField]
 	private GameObject gameOverContainer;
 
+	// The text element for displaying the high score in the game over screen
+	[SerializeField]
+	private TMP_Text highScoreText;
+
 	// The list of hazard prefabs
 	[SerializeField]
 	private GameObject [ ] hazards;
+
+	// The list of power-up prefabs
+	[SerializeField]
+	private GameObject [ ] powerUps;
 
 	// The values for where a hazard can spawn
 	[SerializeField]
@@ -137,6 +160,23 @@ public class GameController : MonoBehaviour
 		}
 	}
 
+	// UpdateAttack displays the current attack type and ammo
+	public void UpdateAttack ( AttackModel attack, int ammo )
+	{
+		// Display the HUD if not a standard attack
+		attackContainer.SetActive ( attack.Type != AttackModel.AttackType.STANDARD );
+
+		// Check for power-up attack
+		if ( attack.Type != AttackModel.AttackType.STANDARD )
+		{
+			// Display attack name and ammo
+			attackText.text = $"{attack.Name}\n{ammo}/{attack.AmmoCount}";
+
+			// Display ammo remaining
+			ammoSlider.value = (float)ammo / (float)attack.AmmoCount;
+		}
+	}
+
 	// Retry will reload the Space scene
 	public void Retry ( )
 	{
@@ -169,11 +209,26 @@ public class GameController : MonoBehaviour
 		// Continuously spawn waves
 		while ( true )
 		{
+			// Get a random position to spawn a power-up instead of a hazard
+			int powerUpIndex = Random.Range ( 0, hazardsPerWave );
+
 			// Spawn each hazard in the wave
 			for ( int i = 0; i < hazardsPerWave; i++ )
 			{
 				// Get a random hazard
-				GameObject hazard = hazards [ Random.Range ( 0, hazards.Length ) ];
+				GameObject hazard;
+
+				// Check for power-up
+				if ( i == powerUpIndex )
+				{
+					// Get a random power-up
+					hazard = powerUps [ Random.Range ( 0, powerUps.Length ) ];
+				}
+				else
+				{
+					// Get a random hazard
+					hazard = hazards [ Random.Range ( 0, hazards.Length ) ];
+				}
 
 				// Spawn the random hazard
 				SpawnHazard ( hazard );
@@ -202,6 +257,9 @@ public class GameController : MonoBehaviour
 			// Increment the round count
 			round++;
 
+			// Increase difficulty
+			hazardsPerWave += 5;
+
 			// Wait for warning message
 			yield return DisplayWarning ( "Hazards Incoming!" );
 
@@ -213,7 +271,7 @@ public class GameController : MonoBehaviour
 		}
 
 		// Display the game over screen
-		gameOverContainer.SetActive ( true );
+		DisplayGameOver ( );
 	}
 
 	// SpawnHazard will spawn a given hazard at a random location
@@ -244,6 +302,49 @@ public class GameController : MonoBehaviour
 	{
 		// Format and display the score
 		scoreText.text = $"Score:\n<b><color=orange>{score}</b></color>";
+	}
+
+	// DisplayGameOver updates the UI to display the game over screen
+	private void DisplayGameOver ( )
+	{
+		// Display the game over screen
+		gameOverContainer.SetActive ( true );
+
+		// Set the default high score
+		int highScore = 0;
+
+		// Check for existing high score
+		if ( PlayerPrefs.HasKey ( HIGH_SCORE_KEY ) )
+		{
+			// Get stored high score
+			highScore = PlayerPrefs.GetInt ( HIGH_SCORE_KEY );
+		}
+
+		// Store whether or not the score is a new record
+		bool isNewRecord = false;
+
+		// Check for a new high score
+		if ( score > highScore )
+		{
+			// Update high score
+			highScore = score;
+
+			// Store new high score
+			PlayerPrefs.SetInt ( HIGH_SCORE_KEY, highScore );
+
+			// Mark a new record
+			isNewRecord = true;
+		}
+
+		// Display high score
+		highScoreText.text = $"High Score: <color=orange>{highScore}</color>";
+
+		// Check for new record
+		if ( isNewRecord )
+		{
+			// Display new record notification
+			highScoreText.text += "\n<color=orange><size=70%>New Record!</size></color>";
+		}
 	}
 
 	// DisplayWarning updates the UI with the message in the warning banner and animates the arrows

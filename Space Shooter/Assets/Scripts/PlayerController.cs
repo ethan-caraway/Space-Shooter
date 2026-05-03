@@ -20,6 +20,8 @@ public class Bounds
 
 public class PlayerController : MonoBehaviour
 {
+	private const float LEFT_ANGLE = -90f;
+
 	// The game controller in the scene
 	[SerializeField]
 	private GameController controller;
@@ -36,9 +38,9 @@ public class PlayerController : MonoBehaviour
 	[SerializeField]
 	private Transform boltSpawn;
 
-	// The prefab for the bolt
+	// The data for the player's attack
 	[SerializeField]
-	private GameObject boltPrefab;
+	private AttackModel standardAttack;
 
 	// The speed at which the player will move
 	[SerializeField]
@@ -48,10 +50,6 @@ public class PlayerController : MonoBehaviour
 	[SerializeField]
 	private float tilt;
 
-	// The amount of time in seconds before the next shot can be fired
-	[SerializeField]
-	private float fireRate;
-
 	// The bounds for the player to move within the scene
 	[SerializeField]
 	private Bounds bounds;
@@ -59,20 +57,30 @@ public class PlayerController : MonoBehaviour
 	// The movement input values along the X and Y axes
 	private Vector2 input;
 
+	// The data for the current attack type
+	private AttackModel currentAttack;
+
+	// The amount of shots left for the current attack
+	private int currentAmmoCount;
+
 	// The time the player wait until before the next shot can be fired
 	private float nextFire;
 
 	// Start is called once before the first execution of Update after the MonoBehaviour is created
 	private void Start ( )
 	{
-		
+		// Set the player's current attack
+		currentAttack = standardAttack;
+
+		// Hide attack HUD
+		controller.UpdateAttack ( currentAttack, currentAmmoCount );
 	}
 
 	// Update is called every frame
 	private void Update ( )
 	{
 		// Update the charge status UI
-		controller.UpdateWeaponCharge ( ( fireRate - ( nextFire - Time.time ) ) / fireRate );
+		controller.UpdateWeaponCharge ( ( currentAttack.FireRate - ( nextFire - Time.time ) ) / currentAttack.FireRate );
 	}
 
 	// FixedUpdate is called at a fixed rate for physics calculations
@@ -105,13 +113,56 @@ public class PlayerController : MonoBehaviour
 		if ( Time.time >= nextFire )
 		{
 			// Store time when the next shot can be fired
-			nextFire = Time.time + fireRate;
+			nextFire = Time.time + currentAttack.FireRate;
 
-			// Spawn a new bolt
-			Instantiate ( boltPrefab, boltSpawn.position, boltSpawn.rotation );
+			// Fire each bolt in the attack
+			for ( int i = 0; i < currentAttack.Angles.Length; i++ )
+			{
+				// Spawn a new bolt
+				Mover bolt = Instantiate ( currentAttack.BoltPrefab, boltSpawn.position, boltSpawn.rotation );
+
+				// Set the bolt's direction
+				bolt.SetDirectionFromAngle ( currentAttack.Angles [ i ] + LEFT_ANGLE );
+				bolt.transform.Rotate ( Vector3.back, currentAttack.Angles [ i ] );
+			}
+
+			// Check for power-up
+			if ( currentAttack.Type != AttackModel.AttackType.STANDARD )
+			{
+				// Decrease ammo
+				currentAmmoCount -= currentAttack.Angles.Length;
+
+				// Check if out of ammo
+				if ( currentAmmoCount <= 0 )
+				{
+					// Remote power-up and reset attack
+					SetAttack ( standardAttack );
+				}
+				else
+				{
+					// Update attack HUD
+					controller.UpdateAttack ( currentAttack, currentAmmoCount );
+				}
+			}
 
 			// Play sound effect
 			audioSource.Play ( );
 		}
+	}
+
+	// SetAttack sets the current attack data from a power-up
+	public void SetAttack ( AttackModel attack )
+	{
+		// Set current attack
+		currentAttack = attack;
+
+		// Reset ammo
+		currentAmmoCount = attack.AmmoCount;
+
+		// Reset fire rate
+		nextFire = Time.time + attack.FireRate;
+
+		// Update attack HUD
+		controller.UpdateAttack ( currentAttack, currentAmmoCount );
 	}
 }

@@ -65,7 +65,7 @@ public class AsteroidSplitter : MonoBehaviour
 			Mover center = Instantiate ( debris [ Random.Range ( 0, debris.Length ) ], transform.position + centerOffset, Quaternion.identity );
 
 			// Give the center asteroid a random direction and speed
-			center.SetDirection ( AngleToDirection ( Random.Range ( -maxCenterAngle, maxCenterAngle ) + RIGHT_ANGLE ), Random.Range ( centerSpeedRange.x, centerSpeedRange.y ) );
+			center.SetDirectionFromAngle ( Random.Range ( -maxCenterAngle, maxCenterAngle ) + RIGHT_ANGLE, Random.Range ( centerSpeedRange.x, centerSpeedRange.y ) );
 
 			// Set the game controller for the center asteroid
 			center.GetComponent<DestroyByContact> ( ).Controller = destroybyContact.Controller;
@@ -74,7 +74,7 @@ public class AsteroidSplitter : MonoBehaviour
 			Mover right = Instantiate ( debris [ Random.Range ( 0, debris.Length ) ], transform.position + rightOffset, Quaternion.identity );
 
 			// Give the right asteroid a random direction and speed
-			right.SetDirection ( AngleToDirection ( -Random.Range ( sideAngleRange.x, sideAngleRange.y ) + RIGHT_ANGLE ), Random.Range ( sideSpeedRange.x, sideSpeedRange.y ) );
+			right.SetDirectionFromAngle ( -Random.Range ( sideAngleRange.x, sideAngleRange.y ) + RIGHT_ANGLE, Random.Range ( sideSpeedRange.x, sideSpeedRange.y ) );
 
 			// Set the game controller for the right asteroid
 			right.GetComponent<DestroyByContact> ( ).Controller = destroybyContact.Controller;
@@ -83,20 +83,10 @@ public class AsteroidSplitter : MonoBehaviour
 			Mover left = Instantiate ( debris [ Random.Range ( 0, debris.Length ) ], transform.position + leftOffset, Quaternion.identity );
 
 			// Give the left asteroid a random direction and speed
-			left.SetDirection ( AngleToDirection ( Random.Range ( sideAngleRange.x, sideAngleRange.y ) + RIGHT_ANGLE ), Random.Range ( sideSpeedRange.x, sideSpeedRange.y ) );
+			left.SetDirectionFromAngle ( Random.Range ( sideAngleRange.x, sideAngleRange.y ) + RIGHT_ANGLE, Random.Range ( sideSpeedRange.x, sideSpeedRange.y ) );
 
 			// Set the game controller for the left asteroid
 			left.GetComponent<DestroyByContact> ( ).Controller = destroybyContact.Controller;
 		}
-	}
-
-	// AngleToDirection is used to convet an angle in degrees to a directional vector on the X and Z axis
-	private Vector3 AngleToDirection ( float angle )
-	{
-		// Gets the rotation angle
-		Vector3 direction = Quaternion.AngleAxis ( angle, Vector3.up ) * Vector3.right;
-
-		// Normalize the direction for equal speed distribution
-		return direction.normalized;
 	}
 }
