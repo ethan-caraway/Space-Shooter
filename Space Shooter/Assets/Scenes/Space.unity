@@ -351,6 +351,7 @@ MonoBehaviour:
   attackContainer: {fileID: 1463138110}
   attackText: {fileID: 2118614565}
   ammoSlider: {fileID: 1166889196}
+  ammoSliderFill: {fileID: 658034235}
   warningContainer: {fileID: 903167179}
   leftArrowText: {fileID: 901827868}
   rightArrowText: {fileID: 477827126}
@@ -366,11 +367,15 @@ MonoBehaviour:
   - {fileID: 5475422344926175808, guid: 574280ecf40f6eb4392f552efc7d1ff5, type: 3}
   powerUps:
   - {fileID: 1225437845962037832, guid: df0a13a7375494a4997b12641c931311, type: 3}
+  - {fileID: 2204921250548684075, guid: 7aa9e1021ceed5f489cdd20f7ad98afb, type: 3}
+  - {fileID: 1283094031108806037, guid: 05cedd675f82311409384fa80fdbe26b, type: 3}
+  - {fileID: 4541527219916632698, guid: 4f660e03de256da44b32e39b7f65025c, type: 3}
+  - {fileID: 2615244900905423553, guid: 6e7ce7e0428bdab40a97ec8d808233c2, type: 3}
   spawnRange: {x: 9, y: 0, z: 8}
   hazardsPerWave: 10
   startWait: 2
   spawnWait: 1.5
-  waveWait: 8
+  waveWait: 6
   warningArrowRate: 0.25
   postWarningWait: 1
 --- !u!4 &211613386

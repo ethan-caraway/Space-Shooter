@@ -7,7 +7,11 @@ public class AttackModel
 	public enum AttackType
 	{
 		STANDARD,
-		SPREAD_SHOT
+		SPREAD_SHOT,
+		DOUBLE_TAP,
+		STAR_BURST,
+		CHAIN_GUN,
+		LASER
 	}
 
 	// The type of attack
@@ -18,13 +22,25 @@ public class AttackModel
 	[SerializeField]
 	private string name;
 
+	// The color associated with the attack
+	[SerializeField]
+	private Color32 attackColor;
+
 	// The prefab of the bolt to be fired
 	[SerializeField]
 	private Mover boltPrefab;
 
-	// The angles to fire each bolt of an attack
+	// The angle ranges to fire each bolt of an attack
 	[SerializeField]
-	private float [ ] angles;
+	private Vector2 [ ] angles;
+
+	// The number of bolts to fire per burst
+	[SerializeField]
+	private int burstCount;
+
+	// The amount of time in seconds before each shot in a burst is fired
+	[SerializeField]
+	private float burstDelay;
 
 	// The amount of time in seconds before the next shot can be fired
 	[SerializeField]
@@ -52,6 +68,15 @@ public class AttackModel
 		}
 	}
 
+	// The read-only property for the color associated with the attack
+	public Color32 AttackColor
+	{
+		get
+		{
+			return attackColor;
+		}
+	}
+
 	// The read-only property for the prefab of the bolt to be fired
 	public Mover BoltPrefab
 	{
@@ -61,12 +86,30 @@ public class AttackModel
 		}
 	}
 
-	// The read-only property for the angles to fire each bolt on an attack
-	public float [ ] Angles
+	// The read-only property for the angle ranges to fire each bolt on an attack
+	public Vector2 [ ] Angles
 	{
 		get
 		{
 			return angles;
+		}
+	}
+
+	// The read-only property for the number of bolts to fire per burst
+	public int BurstCount
+	{
+		get
+		{
+			return burstCount;
+		}
+	}
+
+	// The read-only property for the amount of time in seconds before each shot in a burst is fired
+	public float BurstDelay
+	{
+		get
+		{
+			return burstDelay;
 		}
 	}
 

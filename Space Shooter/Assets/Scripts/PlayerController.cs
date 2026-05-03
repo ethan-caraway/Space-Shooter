@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -115,38 +116,61 @@ public class PlayerController : MonoBehaviour
 			// Store time when the next shot can be fired
 			nextFire = Time.time + currentAttack.FireRate;
 
-			// Fire each bolt in the attack
-			for ( int i = 0; i < currentAttack.Angles.Length; i++ )
+			// Fire burst
+			StartCoroutine ( Fire ( ) );
+
+			
+
+			
+		}
+	}
+
+	// Fire shots each burst in an attack
+	private IEnumerator Fire ( )
+	{
+		// Fire each bolt in the burst
+		for ( int i = 0; i < currentAttack.BurstCount; i++ )
+		{
+			// Fire bolts at each angle
+			for ( int j = 0; j < currentAttack.Angles.Length; j++ )
 			{
 				// Spawn a new bolt
 				Mover bolt = Instantiate ( currentAttack.BoltPrefab, boltSpawn.position, boltSpawn.rotation );
 
+				// Get firing angle
+				float angle = Random.Range ( currentAttack.Angles [ j ].x, currentAttack.Angles [ j ].y );
+
 				// Set the bolt's direction
-				bolt.SetDirectionFromAngle ( currentAttack.Angles [ i ] + LEFT_ANGLE );
-				bolt.transform.Rotate ( Vector3.back, currentAttack.Angles [ i ] );
+				bolt.SetDirectionFromAngle ( angle + LEFT_ANGLE );
+				bolt.transform.Rotate ( Vector3.back, angle );
 			}
 
-			// Check for power-up
-			if ( currentAttack.Type != AttackModel.AttackType.STANDARD )
-			{
-				// Decrease ammo
-				currentAmmoCount -= currentAttack.Angles.Length;
-
-				// Check if out of ammo
-				if ( currentAmmoCount <= 0 )
-				{
-					// Remote power-up and reset attack
-					SetAttack ( standardAttack );
-				}
-				else
-				{
-					// Update attack HUD
-					controller.UpdateAttack ( currentAttack, currentAmmoCount );
-				}
-			}
+			// Decrease ammo
+			currentAmmoCount -= currentAttack.Angles.Length;
 
 			// Play sound effect
 			audioSource.Play ( );
+
+			// Update attack HUD
+			controller.UpdateAttack ( currentAttack, currentAmmoCount );
+
+			// Check for more shots in the burst
+			if ( i + 1 < currentAttack.BurstCount )
+			{
+				// Wait before firing the next shot in the burst
+				yield return new WaitForSeconds ( currentAttack.BurstDelay );
+			}
+		}
+
+		// Check for power-up
+		if ( currentAttack.Type != AttackModel.AttackType.STANDARD )
+		{
+			// Check if out of ammo
+			if ( currentAmmoCount <= 0 )
+			{
+				// Remote power-up and reset attack
+				SetAttack ( standardAttack );
+			}
 		}
 	}
 

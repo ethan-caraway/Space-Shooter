@@ -243,9 +243,14 @@ MonoBehaviour:
   standardAttack:
     type: 0
     name: Bolt
+    attackColor:
+      serializedVersion: 2
+      rgba: 4294967295
     boltPrefab: {fileID: 6828831306826506994, guid: 877c6112c7b277c4e982ab16449135ba, type: 3}
     angles:
-    - 0
+    - {x: 0, y: 0}
+    burstCount: 1
+    burstDelay: 0
     fireRate: 1
     ammoCount: 0
   speed: 5

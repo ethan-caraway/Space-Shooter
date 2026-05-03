@@ -42,6 +42,10 @@ public class GameController : MonoBehaviour
 	[SerializeField]
 	private Slider ammoSlider;
 
+	// The image element filling the ammo slider element
+	[SerializeField]
+	private Image ammoSliderFill;
+
 	// The UI element containing the warning banner
 	[SerializeField]
 	private GameObject warningContainer;
@@ -170,10 +174,12 @@ public class GameController : MonoBehaviour
 		if ( attack.Type != AttackModel.AttackType.STANDARD )
 		{
 			// Display attack name and ammo
-			attackText.text = $"{attack.Name}\n{ammo}/{attack.AmmoCount}";
+			attackText.text = $"{attack.Name}\n<color=white>{ammo}/{attack.AmmoCount}</color>";
+			attackText.color = attack.AttackColor;
 
 			// Display ammo remaining
 			ammoSlider.value = (float)ammo / (float)attack.AmmoCount;
+			ammoSliderFill.color = attack.AttackColor;
 		}
 	}
 
